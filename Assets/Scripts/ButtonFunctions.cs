@@ -38,10 +38,10 @@ public class ButtonFunctions : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            System.Diagnostics.Process.Start("shutdown", "/s /t 0");                                    // THIS SHUTS DOWN THE PC
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    System.Diagnostics.Process.Start("shutdown", "/s /t 0");                                    // THIS SHUTS DOWN THE PC
+        //}
     }
 
     /// <summary>
