@@ -1,41 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour            // Json or binary???
+public class SaveManager : MonoBehaviour
 {
-    public SaveData saveData;
+    public SaveData saveFile;
+    string dataPath;
 
-    private void Update()
+    void Start()
+    {
+        dataPath = Path.Combine(Application.persistentDataPath, "saveFile.txt");
+    }
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
-            SaveGame(saveData, 0);
+            SaveGame(saveFile, dataPath);
 
         if (Input.GetKeyDown(KeyCode.L))
-            saveData = LoadGame(0);
+            saveFile = LoadGame(dataPath);
     }
 
-    static void SaveGame(SaveData data, int characterSlot)
+    static void SaveGame(SaveData data, string path)
     {
-        PlayerPrefs.SetInt("checkpointReached" + characterSlot, data.checkpoint);
-        PlayerPrefs.SetInt("hoursPlayed" + characterSlot, data.hours);
-        PlayerPrefs.SetInt("minutesPlayed" + characterSlot, data.minutes);
-        PlayerPrefs.SetInt("secondsPlayed" + characterSlot, data.seconds);
-        PlayerPrefs.Save();
+        string jsonString = JsonUtility.ToJson(data);
+
+        using (StreamWriter streamWriter = File.CreateText(path))
+        {
+            streamWriter.Write(jsonString);
+        }
     }
 
-    static SaveData LoadGame(int characterSlot)
+    static SaveData LoadGame(string path)
     {
-        SaveData loadedCharacter = new SaveData();
-        loadedCharacter.checkpoint = PlayerPrefs.GetInt("checkpointReached" + characterSlot);
-        loadedCharacter.hours = PlayerPrefs.GetInt("hoursPlayed" + characterSlot);
-        loadedCharacter.minutes = PlayerPrefs.GetInt("minutesPlayed" + characterSlot);
-        loadedCharacter.seconds = PlayerPrefs.GetInt("secondsPlayed" + characterSlot);
-
-        return loadedCharacter;
+        using (StreamReader streamReader = File.OpenText(path))
+        {
+            string jsonString = streamReader.ReadToEnd();
+            return JsonUtility.FromJson<SaveData>(jsonString);
+        }
     }
+}
 
-    private void CreateData()
+/*
+private void CreateData()
     {
 
     }
@@ -59,4 +65,4 @@ public class SaveManager : MonoBehaviour            // Json or binary???
     {
 
     }
-}
+}*/
