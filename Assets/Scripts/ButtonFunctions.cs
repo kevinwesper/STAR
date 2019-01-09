@@ -11,6 +11,7 @@ public class ButtonFunctions : MonoBehaviour
     [SerializeField] private GameObject _quitButtonObject;
     [SerializeField] private bool SavePresent;
     [SerializeField] private Button _continueButton;
+    private Button button;
 
     [Header("Credits")]
     [SerializeField] private GameObject _creditsScreen;
@@ -45,7 +46,7 @@ public class ButtonFunctions : MonoBehaviour
     }
 
     /// <summary>
-    /// Checls of there is a save file present and makes the continue button accessible accordingly.
+    /// Checks if there is a save file present and makes the continue button accessible accordingly.
     /// </summary>
     /// <param name="aScene"></param>
     /// <param name="aMode"></param>
@@ -53,13 +54,16 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "StartScreen")
         {
-            if (SavePresent)                                                                            //TODO
+            if (_continueButton != null)
             {
-                _continueButton.interactable = true;
-            }
-            else
-            {
-                _continueButton.interactable = false;
+                if (SavePresent)                                                                            //TODO
+                {
+                    _continueButton.interactable = true;
+                }
+                else
+                {
+                    _continueButton.interactable = false;
+                }
             }
         }
     }
