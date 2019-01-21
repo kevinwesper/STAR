@@ -9,7 +9,6 @@ public class ButtonFunctions : MonoBehaviour
 {
     [Header("Main Menu")]
     [SerializeField] private GameObject _quitButtonObject;
-    [SerializeField] private bool SavePresent;
     [SerializeField] private Button _continueButton;
 
     [Header("Credits")]
@@ -20,6 +19,8 @@ public class ButtonFunctions : MonoBehaviour
 
     [Header("Options")]
     [SerializeField] private GameObject _optionsScreen;
+
+    private bool SavePresent;
 
     private Image _cutscene;
 
@@ -36,16 +37,8 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    System.Diagnostics.Process.Start("shutdown", "/s /t 0");                                    // THIS SHUTS DOWN THE PC
-        //}
-    }
-
     /// <summary>
-    /// Checls of there is a save file present and makes the continue button accessible accordingly.
+    /// Checks if there is a save file present and makes the continue button accessible accordingly.
     /// </summary>
     /// <param name="aScene"></param>
     /// <param name="aMode"></param>
@@ -53,13 +46,16 @@ public class ButtonFunctions : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "StartScreen")
         {
-            if (SavePresent)                                                                            //TODO
+            if (GameManager.manager.save)
             {
                 _continueButton.interactable = true;
             }
             else
             {
                 _continueButton.interactable = false;
+#if UNITY_WEBGL || UNITY_FACEBOOK
+                _continueButton.SetActive(false);
+#endif
             }
         }
     }
