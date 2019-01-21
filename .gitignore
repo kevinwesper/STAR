@@ -19,3 +19,7 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+\.vs/STAR/v15/Server/sqlite3/
+
+*.ide-shm
