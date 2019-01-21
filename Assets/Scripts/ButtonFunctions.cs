@@ -10,6 +10,7 @@ public class ButtonFunctions : MonoBehaviour
     [Header("Main Menu")]
     [SerializeField] private GameObject _quitButtonObject;
     [SerializeField] private Button _continueButton;
+    private Button button;
 
     [Header("Credits")]
     [SerializeField] private GameObject _creditsScreen;
@@ -48,7 +49,14 @@ public class ButtonFunctions : MonoBehaviour
         {
             if (GameManager.manager.save)
             {
-                _continueButton.interactable = true;
+                if (SavePresent)                                                                            //TODO
+                {
+                    _continueButton.interactable = true;
+                }
+                else
+                {
+                    _continueButton.interactable = false;
+                }
             }
             else
             {
