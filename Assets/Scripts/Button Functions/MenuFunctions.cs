@@ -5,12 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ButtonFunctions : MonoBehaviour
+public class MenuFunctions : MonoBehaviour
 {
-    [Header("Main Menu")]
-    [SerializeField] private GameObject _quitButtonObject;
     [SerializeField] private Button _continueButton;
-    private Button button;
 
     [Header("Credits")]
     [SerializeField] private GameObject _creditsScreen;
@@ -20,21 +17,12 @@ public class ButtonFunctions : MonoBehaviour
 
     [Header("Options")]
     [SerializeField] private GameObject _optionsScreen;
-
-    private bool SavePresent;
-
-    private Image _cutscene;
-
+    
     /// <summary>
-    /// Turns off the quit button for mobile devices.
     /// Makes a function that gets called every time the scene is loaded.
     /// </summary>
     private void Awake()
     {
-#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-        _quitButtonObject.SetActive(false);
-#endif
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -49,22 +37,15 @@ public class ButtonFunctions : MonoBehaviour
         {
             if (GameManager.manager.save)
             {
-                if (SavePresent)                                                                            //TODO
-                {
-                    _continueButton.interactable = true;
-                }
-                else
-                {
-                    _continueButton.interactable = false;
-                }
+                _continueButton.interactable = true;
             }
             else
             {
                 _continueButton.interactable = false;
+            }
 #if UNITY_WEBGL || UNITY_FACEBOOK
                 _continueButton.SetActive(false);
 #endif
-            }
         }
     }
 
@@ -74,7 +55,6 @@ public class ButtonFunctions : MonoBehaviour
     /// </summary>
     public void NewGameButton()
     {
-        SavePresent = true;
         SceneManager.LoadScene("GameScreen");
     }
 
@@ -102,19 +82,6 @@ public class ButtonFunctions : MonoBehaviour
         IEnumerator prepareCredits = PrepareForCredits();
         StartCoroutine(prepareCredits);
     }
-
-    /// <summary>
-    /// Quits the application.
-    /// (Is removed for mobile devices)
-    /// </summary>
-    public void QuitButton()
-    {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#elif UNITY_STANDALONE
-        Application.Quit();
-#endif
-    }
     #endregion
 
     #region Credits Screen
@@ -141,42 +108,6 @@ public class ButtonFunctions : MonoBehaviour
         _creditsAnimator.SetTrigger("Play");
 
         yield return new WaitForSeconds(_creditsAnimation.length + 1.0f);
-    }
-    #endregion
-
-    #region Cutscenes
-    /// <summary>
-    /// Go to next "scene".
-    /// </summary>
-    public void NextButton()
-    {
-        print("Next pressed");
-    }
-
-    /// <summary>
-    /// Go to next "scene".
-    /// </summary>
-    public void SkipButton()
-    {
-        print("Skip pressed");
-    }
-    #endregion
-
-    #region Shared Screens
-    /// <summary>
-    /// Go back to main menu.
-    /// </summary>
-    public void MenuButton()
-    {
-        print("Menu pressed");
-    }
-
-    /// <summary>
-    /// Saves data before the game is closed.
-    /// </summary>
-    void OnApplicationQuit()
-    {
-        // save game
     }
     #endregion
 }
