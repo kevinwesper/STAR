@@ -23,8 +23,16 @@ public class GameFunctions : MonoBehaviour
     private void OnSceneLoaded(Scene aScene, LoadSceneMode aMode)
     {
         // new game or continue
+
+
+        LoadScene();
     }
     
+    private void LoadScene()
+    {
+
+    }
+
     #region Cutscenes
     /// <summary>
     /// Go to next "scene".
@@ -40,6 +48,13 @@ public class GameFunctions : MonoBehaviour
     public void SkipButton()
     {
         print("Skip pressed");
+    }
+    #endregion
+
+    #region Game
+    public void RestartButton()
+    {
+        // reload scene
     }
     #endregion
 }

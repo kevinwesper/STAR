@@ -55,7 +55,7 @@ public class MenuFunctions : MonoBehaviour
     /// </summary>
     public void NewGameButton()
     {
-        SceneManager.LoadScene("GameScreen");
+        SceneManager.LoadScene("CutsceneScreen");
     }
 
     /// <summary>
