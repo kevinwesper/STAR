@@ -18,7 +18,7 @@ namespace ButtonDropdown
         [Header ("Main Settings")]
         [SerializeField] private Orientation orientation = Orientation.Vertical;
         [SerializeField] private Color backdropColor = Color.white;
-        [SerializeField] private float backdropOffset = 5f;
+        /*[SerializeField]*/ private float backdropOffset = 5f;
 
         public GameObject backdropObject;
         public GameObject subButtonManager;

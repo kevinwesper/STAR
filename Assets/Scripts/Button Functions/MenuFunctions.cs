@@ -55,6 +55,8 @@ public class MenuFunctions : MonoBehaviour
     /// </summary>
     public void NewGameButton()
     {
+        GameManager.manager.Delete();
+
         SceneManager.LoadScene("CutsceneScreen");
     }
 
@@ -63,7 +65,9 @@ public class MenuFunctions : MonoBehaviour
     /// </summary>
     public void ContinueButton()
     {
-        print("Continue pressed");
+        GameManager.manager.Load();
+
+        SceneManager.LoadScene("CutsceneScreen");
     }
 
     /// <summary>
